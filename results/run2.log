@@ -1,0 +1,29 @@
+You are running a development build of Vue.
+Make sure to use the production build (*.prod.js) when deploying for production.
+vue 3.6.0-rc.10 · @unhead/vue 3.4.2 · unhead 3.4.2 · happy-dom 20.14.6 · node v24.19.0
+
+[vdom (control)]
+  in setup: getCurrentInstance() non-null, getCurrentScope() defined
+  mounted:   title="child" robots="noindex" entries=2 child<p>InDom=true
+  unmounted: title="parent" robots=null entries=1 child<p>InDom=false
+  PASS: child head tags removed on unmount
+
+[vapor defineVaporComponent]
+  in setup: getCurrentInstance() null, getCurrentScope() defined
+  mounted:   title="child" robots="noindex" entries=2 child<p>InDom=true
+  unmounted: title="child" robots="noindex" entries=2 child<p>InDom=false
+  FAIL: child head tags remain after unmount
+
+[vapor <script setup vapor>]
+  mounted:   title="child" robots="noindex" entries=2 child<p>InDom=true
+  unmounted: title="child" robots="noindex" entries=2 child<p>InDom=false
+  FAIL: child head tags remain after unmount
+
+[vapor + onScopeDispose (fix direction)]
+  in setup: getCurrentInstance() null, getCurrentScope() defined
+  mounted:   title="child" robots="noindex" entries=2 child<p>InDom=true
+  unmounted: title="parent" robots=null entries=1 child<p>InDom=false
+  PASS: child head tags removed on unmount
+
+VERDICT: defect present in vapor defineVaporComponent, vapor <script setup vapor>
+run2 exit=1
